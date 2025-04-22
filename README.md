@@ -35,9 +35,10 @@ The project is organised in one project folder containing:
 4) MakeFile (blank)
 5) gitignore file (precompiled)
 
-To use the programm write on terminal the chosen command_name and 2 arguments
+To use the program write on terminal the chosen command_name and 2 arguments
 1) Extension of the main file : c, cpp or py.
 2) Name of the Project folder.
+
 Example :
 ```bash
 sab cpp Test
@@ -45,4 +46,4 @@ sab cpp Test
 where sab is the command_name I chose.
 
 ## WARNINGS
-The programm will NOT remove or overwrite any already existing files, but it is recomended to NOT run this command in any sensitive or critical areas of your system.
+The program will NOT remove or overwrite any already existing files, but it is recomended to NOT run this command in any sensitive or critical areas of your system.
