@@ -55,3 +55,9 @@ io.close()
 io.output(project_name .. "/Makefile")
 
 -- fill the Makefile
+
+io.output(project_name .. "/.gitignore")
+io.write(".vscode\n")
+io.write(".gitignore\n")
+io.write("Makefile\n")
+io.write("CMakeLists.txt\n")
