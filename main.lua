@@ -36,6 +36,7 @@ lfs.mkdir(project_name)
 lfs.mkdir(project_name .. "/include")
 lfs.mkdir(project_name .. "/src")
 io.output(project_name .. "/src/main" .. exstension)
+lfs.mkdir(project_name .. "/README.md")
 
 if exstension == ".py" then
     io.close()
@@ -61,3 +62,4 @@ io.write(".vscode\n")
 io.write(".gitignore\n")
 io.write("Makefile\n")
 io.write("CMakeLists.txt\n")
+io.write("build/\n")
