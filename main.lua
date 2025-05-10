@@ -36,7 +36,7 @@ lfs.mkdir(project_name)
 lfs.mkdir(project_name .. "/include")
 lfs.mkdir(project_name .. "/src")
 io.output(project_name .. "/src/main" .. exstension)
-lfs.mkdir(project_name .. "/README.md")
+io.output(project_name .. "/README.md")
 
 if exstension == ".py" then
     io.close()
@@ -55,7 +55,7 @@ io.close()
 
 io.output(project_name .. "/Makefile")
 
--- fill the Makefile
+-- todo: fill the Makefile
 
 io.output(project_name .. "/.gitignore")
 io.write(".vscode\n")
