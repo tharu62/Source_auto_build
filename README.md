@@ -29,11 +29,12 @@ You can now run the programm anywhere in the system.
 
 ## USE and CONTENT
 The project is organised in one project folder containing:
-1) inlcude directory
-2) src directory with main file (blank)
-3) CMakeLists.txt (partially precompiled)
-4) MakeFile (blank)
-5) gitignore file (precompiled)
+1) build directory
+2) inlcude directory
+3) src directory with main file (blank)
+4) CMakeLists.txt (partially precompiled)
+5) MakeFile (blank)
+6) gitignore file (precompiled)
 
 To use the program write on terminal the chosen command_name and 2 arguments
 1) Extension of the main file : c, cpp or py.
