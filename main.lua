@@ -33,6 +33,7 @@ if lfs.attributes(project_name) then
 end
 
 lfs.mkdir(project_name)
+lfs.mkdir(project_name .. "/build")
 lfs.mkdir(project_name .. "/include")
 lfs.mkdir(project_name .. "/src")
 io.output(project_name .. "/src/main" .. exstension)
