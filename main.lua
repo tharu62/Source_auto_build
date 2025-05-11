@@ -54,9 +54,26 @@ io.write("add_executable(main src/main.cpp)\n")
 io.write("target_compile_features(main PRIVATE cxx_std_17)\n")
 io.close()
 
+-- fill the MakeFile
 io.output(project_name .. "/Makefile")
-
--- todo: fill the Makefile
+if exstension == ".c" then
+    io.write("CC = gcc\n")
+    io.write("CFLAGS= -Wall -Werror -Wextra -std=c++17\n")
+    io.write("LDFLAGS= -Iinclude -LC:$(HOME)/Documents/C/" .. project_name .. "/include\n\n")
+else
+    io.write("CC = g++\n")
+    o.write("CFLAGS= -Wall -Werror -Wextra -std=c++17\n")
+    io.write("LDFLAGS= -Iinclude -LC:$(HOME)/Documents/C++/" .. project_name .. "/include\n\n")
+end
+io.write("SRC_F=src\n")
+io.write("BUILD_F=build\n\n")
+io.write("default: app.exe run\n")
+io.write("file.exe :app.o\n")
+io.write("\t$(CXX) $(BUILD_F)/app.o $(LDFLAGS) -o $(BUILD_F)/app.exe\n\n")
+io.write("app.o:\n")
+io.write("\t$(CXX) -c $(SRC_F)/main.c $(LDFLAGS) -o $(BUILD_F)/app.o\n\n")
+io.write("run: app.exe\n")
+io.write("\t./$(BUILD_F)/app.exe\n")
 
 io.output(project_name .. "/.gitignore")
 io.write(".vscode\n")
