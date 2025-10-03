@@ -5,6 +5,9 @@ require "lfs"
 -- print("Enter the programming language (c/cpp/py): ")
 -- exstension = io.read("*l")
 
+-- CHANGE THIS PATH TO YOUR ABS PATH
+template_abs_path = "C:/Users/Deshan/Documents/Code/Lua/Source_auto_build/templates"
+
 exstension = arg[1]
 if exstension == "c" then
     exstension = ".c"
@@ -74,14 +77,14 @@ if exstension == ".py" then
     return 
 end
 
-process_template("templates/CMakeLists.txt", project_name .. "/CMakeLists.txt", project_name)
+process_template(template_abs_path .. "/CMakeLists.txt", project_name .. "/CMakeLists.txt", project_name)
 if exstension == ".c" then
-    process_template("templates/MakeFile_c", project_name .. "/MakeFile", project_name)
-    process_template("templates/main.c", project_name .. "/src/main.c", project_name)
+    process_template(template_abs_path .. "/MakeFile_c", project_name .. "/MakeFile", project_name)
+    process_template(template_abs_path .. "/main.c", project_name .. "/src/main.c", project_name)
 else
-    process_template("templates/MakeFile_cpp", project_name .. "/MakeFile", project_name)
-    process_template("templates/main.cpp", project_name .. "/src/main.cpp", project_name)
+    process_template(template_abs_path .. "/MakeFile_cpp", project_name .. "/MakeFile", project_name)
+    process_template(template_abs_path .. "/main.cpp", project_name .. "/src/main.cpp", project_name)
 end
-process_template("templates/README.md", project_name .. "/README.md", project_name)
-process_template("templates/.gitignore", project_name .. "/.gitignore", project_name)
+process_template(template_abs_path .. "/README.md", project_name .. "/README.md", project_name)
+process_template(template_abs_path .. "/.gitignore", project_name .. "/.gitignore", project_name)
 io.close()
