@@ -33,7 +33,7 @@ if lfs.attributes(project_name) then
 end
 
 lfs.mkdir(project_name)
-if exstension != ".py" then
+if exstension ~= ".py" then
     lfs.mkdir(project_name .. "/build")
     lfs.mkdir(project_name .. "/include")
 end
