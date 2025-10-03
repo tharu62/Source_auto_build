@@ -60,9 +60,9 @@ end
 
 if exstension == ".py" then
     -- Read the python_template.py file from the templates directory
-    local template_file = io.open("templates/python_template.py", "r")
+    local template_file = io.open(template_abs_path .. "/main.py", "r")
     if not template_file then
-        print("Error: templates/python_template.py not found.")
+        print("Error: templates/main.py not found.")
         return
     end
     local template_content = template_file:read("*a")
@@ -73,7 +73,7 @@ if exstension == ".py" then
     main_py:write(template_content)
     main_py:close()
     -- Process README.md template
-    process_template("templates/README.md", project_name .. "/README.md", project_name)
+    process_template(template_abs_path .. "/README.md", project_name .. "/README.md", project_name)
     return 
 end
 
