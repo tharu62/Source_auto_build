@@ -33,8 +33,10 @@ if lfs.attributes(project_name) then
 end
 
 lfs.mkdir(project_name)
-lfs.mkdir(project_name .. "/build")
-lfs.mkdir(project_name .. "/include")
+if exstension != ".py" then
+    lfs.mkdir(project_name .. "/build")
+    lfs.mkdir(project_name .. "/include")
+end
 lfs.mkdir(project_name .. "/src")
 io.output(project_name .. "/src/main" .. exstension)
 
@@ -75,8 +77,10 @@ end
 process_template("templates/CMakeLists.txt", project_name .. "/CMakeLists.txt", project_name)
 if exstension == ".c" then
     process_template("templates/MakeFile_c", project_name .. "/MakeFile", project_name)
+    process_template("templates/main.c", project_name .. "/src/main.c", project_name)
 else
     process_template("templates/MakeFile_cpp", project_name .. "/MakeFile", project_name)
+    process_template("templates/main.cpp", project_name .. "/src/main.cpp", project_name)
 end
 process_template("templates/README.md", project_name .. "/README.md", project_name)
 process_template("templates/.gitignore", project_name .. "/.gitignore", project_name)
