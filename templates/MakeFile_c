@@ -1,0 +1,14 @@
+CC = gcc
+CFLAGS= -Wall -Werror -Wextra -std=c++17
+LDFLAGS= -Iinclude -LC:$(HOME)/Documents/C/{{PROJECT_NAME}}/include
+
+SRC_F=src
+BUILD_F=build
+
+default: app.exe run
+file.exe :app.o
+	$(CXX) $(BUILD_F)/app.o $(LDFLAGS) -o $(BUILD_F)/app.exe
+app.o:
+	$(CXX) -c $(SRC_F)/main.c $(LDFLAGS) -o $(BUILD_F)/app.o
+run: app.exe
+	./$(BUILD_F)/app.exe

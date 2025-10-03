@@ -37,47 +37,47 @@ lfs.mkdir(project_name .. "/build")
 lfs.mkdir(project_name .. "/include")
 lfs.mkdir(project_name .. "/src")
 io.output(project_name .. "/src/main" .. exstension)
-io.output(project_name .. "/README.md")
+
+local function process_template(template_path, output_path, project_name)
+    local f = io.open(template_path, "r")
+    if not f then
+        print("Error: Template file " .. template_path .. " not found.")
+        return
+    end
+    local content = f:read("*a")
+    f:close()
+    -- Replace placeholder with project name
+    content = content:gsub("{{PROJECT_NAME}}", project_name)
+    local out = io.open(output_path, "w")
+    out:write(content)
+    out:close()
+end
 
 if exstension == ".py" then
-    io.close()
+    -- Read the python_template.py file from the templates directory
+    local template_file = io.open("templates/python_template.py", "r")
+    if not template_file then
+        print("Error: templates/python_template.py not found.")
+        return
+    end
+    local template_content = template_file:read("*a")
+    template_file:close()
+
+    -- Write the template content to the new main.py
+    local main_py = io.open(project_name .. "/src/main.py", "w")
+    main_py:write(template_content)
+    main_py:close()
+    -- Process README.md template
+    process_template("templates/README.md", project_name .. "/README.md", project_name)
     return 
 end
 
-io.output(project_name .. "/CMakeLists.txt")
-
--- fill the CMakeLists.txt 
-io.write("cmake_minimum_required(VERSION 3.28)\n")
-io.write("project(" .. project_name .. " LANGUAGES CXX)\n\n\n")
-io.write("include_directories(".. "include" .. ")\n")
-io.write("add_executable(main src/main.cpp)\n")
-io.write("target_compile_features(main PRIVATE cxx_std_17)\n")
-io.close()
-
--- fill the MakeFile
-io.output(project_name .. "/Makefile")
+process_template("templates/CMakeLists.txt", project_name .. "/CMakeLists.txt", project_name)
 if exstension == ".c" then
-    io.write("CC = gcc\n")
-    io.write("CFLAGS= -Wall -Werror -Wextra -std=c++17\n")
-    io.write("LDFLAGS= -Iinclude -LC:$(HOME)/Documents/C/" .. project_name .. "/include\n\n")
+    process_template("templates/MakeFile_c", project_name .. "/MakeFile", project_name)
 else
-    io.write("CC = g++\n")
-    o.write("CFLAGS= -Wall -Werror -Wextra -std=c++17\n")
-    io.write("LDFLAGS= -Iinclude -LC:$(HOME)/Documents/C++/" .. project_name .. "/include\n\n")
+    process_template("templates/MakeFile_cpp", project_name .. "/MakeFile", project_name)
 end
-io.write("SRC_F=src\n")
-io.write("BUILD_F=build\n\n")
-io.write("default: app.exe run\n")
-io.write("file.exe :app.o\n")
-io.write("\t$(CXX) $(BUILD_F)/app.o $(LDFLAGS) -o $(BUILD_F)/app.exe\n\n")
-io.write("app.o:\n")
-io.write("\t$(CXX) -c $(SRC_F)/main.c $(LDFLAGS) -o $(BUILD_F)/app.o\n\n")
-io.write("run: app.exe\n")
-io.write("\t./$(BUILD_F)/app.exe\n")
-
-io.output(project_name .. "/.gitignore")
-io.write(".vscode\n")
-io.write(".gitignore\n")
-io.write("Makefile\n")
-io.write("CMakeLists.txt\n")
-io.write("build/\n")
+process_template("templates/README.md", project_name .. "/README.md", project_name)
+process_template("templates/.gitignore", project_name .. "/.gitignore", project_name)
+io.close()
