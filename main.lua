@@ -79,11 +79,11 @@ end
 
 if exstension == ".c" then
     process_template(template_abs_path .. "/CMakeLists.txt.c", project_name .. "/CMakeLists.txt", project_name)
-    process_template(template_abs_path .. "/MakeFile_c", project_name .. "/MakeFile", project_name)
+    process_template(template_abs_path .. "/Makefile_c", project_name .. "/Makefile", project_name)
     process_template(template_abs_path .. "/main.c", project_name .. "/src/main.c", project_name)
 else
     process_template(template_abs_path .. "/CMakeLists.txt.cpp", project_name .. "/CMakeLists.txt", project_name)
-    process_template(template_abs_path .. "/MakeFile_cpp", project_name .. "/MakeFile", project_name)
+    process_template(template_abs_path .. "/Makefile_cpp", project_name .. "/Makefile", project_name)
     process_template(template_abs_path .. "/main.cpp", project_name .. "/src/main.cpp", project_name)
 end
 process_template(template_abs_path .. "/README.md", project_name .. "/README.md", project_name)
