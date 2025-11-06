@@ -5,9 +5,9 @@ LDFLAGS= -Iinclude -Linclude
 SRC_F=src
 BUILD_F=build
 
-default: app.exe run
+default: app.exe
 
-file.exe :app.o
+app.exe :app.o
 	$(CXX) $(BUILD_F)/app.o $(LDFLAGS) -o $(BUILD_F)/app.exe
 
 app.o:

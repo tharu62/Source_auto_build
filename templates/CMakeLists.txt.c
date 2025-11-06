@@ -3,4 +3,4 @@ project({{PROJECT_NAME}} LANGUAGES C)
 
 include_directories(include)
 add_executable(main src/main.c)
-target_compile_features(main PRIVATE cxx_std_17)
+target_compile_features(main PRIVATE c_std_11)
