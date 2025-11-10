@@ -1,17 +1,54 @@
+# Variables
 CC = g++
-CFLAGS= -Wall -Werror -Wextra -std=c++17
-LDFLAGS= -Iinclude -Linclude
+CFLAGS = -Wall -O2
+SRC_DIR = src
+BUILD_DIR = build
+INCL_DIR = include
+LIB = 
 
-SRC_F=src
-BUILD_F=build
+# Find source files
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+# Convert to object paths
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRCS))
 
-default: app.exe
+# Include and library path flags
+INCLUDE_FLAGS = -I$(INCL_DIR) 
+LIBRARY_PATH_FLAGS = -L$(LIBS)
 
-app.exe :app.o
-	$(CXX) $(BUILD_F)/app.o $(LDFLAGS) -o $(BUILD_F)/app.exe
+# Libraries to link
+ifeq ($(OS),Windows_NT)
+	LIBS = -l
+else
+	LIBS = -l
+endif
 
-app.o:
-	$(CXX) -c $(SRC_F)/main.c $(LDFLAGS) -o $(BUILD_F)/app.o
+# Default target
+all: sim
 
-run: app.exe
-	./$(BUILD_F)/app.exe
+# Link executable
+sim: $(OBJS)
+ifeq ($(OS),Windows_NT)
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) $(LIBRARY_PATH_FLAGS) -o $@ $^ $(LIBS)
+else
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) $(LIBRARY_PATH_FLAGS) -Wl,-rpath,$(RAYLIB_LIB_DIR) -o $@ $^ $(LIBS)
+endif
+
+# Compile each .c to .o
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
+
+# Ensure build directory exists
+$(BUILD_DIR):
+	mkdir $(BUILD_DIR)
+
+# Clean target
+clean:
+ifeq ($(OS),Windows_NT)
+	@echo Cleaning Windows build files...
+	@del /Q /F $(BUILD_DIR)\*.o 2>nul || echo No files to delete.
+	@del /Q /F sim.exe 2>nul || echo No files to delete.
+else
+	@echo Cleaning Linux build files...
+	@rm -rf $(BUILD_DIR)/*.o
+	@rm -f sim 2>/dev/null || echo No files to delete.
+endif
